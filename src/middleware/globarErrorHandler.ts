@@ -1,5 +1,5 @@
 import httpStatus from 'http-status';
-import config from '../config';
+import config from '@/config';
 import { Request, Response, ErrorRequestHandler, NextFunction } from 'express';
 
 const globalErrorHandler: ErrorRequestHandler = (

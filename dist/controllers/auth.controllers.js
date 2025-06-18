@@ -24,17 +24,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.logout = exports.resetPassword = exports.verifyForgotPasswordCode = exports.forgotPassword = exports.login = exports.resendVerifyCode = exports.verifyEmail = exports.register = void 0;
-const catchAsync_1 = __importDefault(require("../utils/catchAsync"));
-const AppError_1 = __importDefault(require("../utils/AppError"));
+const catchAsync_1 = __importDefault(require("@/utils/catchAsync"));
+const AppError_1 = __importDefault(require("@/utils/AppError"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const http_status_1 = __importDefault(require("http-status"));
-const createJwtToken_1 = require("../utils/createJwtToken");
-const sendEmail_1 = __importDefault(require("../utils/sendEmail"));
-const verifyEmailTemplate_1 = require("../emailTemplates/verifyEmailTemplate");
-const forgotPassEmailTemplate_1 = require("../emailTemplates/forgotPassEmailTemplate");
-const prismaClient_1 = require("../utils/prismaClient");
+const createJwtToken_1 = require("@/utils/createJwtToken");
+const sendEmail_1 = __importDefault(require("@/utils/sendEmail"));
+const verifyEmailTemplate_1 = require("@/emailTemplates/verifyEmailTemplate");
+const forgotPassEmailTemplate_1 = require("@/emailTemplates/forgotPassEmailTemplate");
+const prismaClient_1 = require("@/utils/prismaClient");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const config_1 = __importDefault(require("../config"));
+const config_1 = __importDefault(require("@/config"));
 exports.register = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, email, password } = req.body;
     // check if user exists--

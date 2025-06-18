@@ -1,17 +1,17 @@
 import express from 'express';
-import { authorizeRoles, isAuthenticatedUser } from '../middleware/authGuard';
+import { authorizeRoles, isAuthenticatedUser } from '@/middleware/authGuard';
 import {
   changePassword,
   deleteUser,
   getAllUsers,
   getUserProfile,
   updateUserProfile,
-} from '../controllers/user.controllers';
-import validateRequest from '../middleware/validateRequest';
+} from '@/controllers/user.controllers';
+import validateRequest from '@/middleware/validateRequest';
 import {
   changePasswordSchema,
   updateUserProfileSchema,
-} from '../validation/user.validation';
+} from '@/validation/user.validation';
 
 const router = express.Router();
 

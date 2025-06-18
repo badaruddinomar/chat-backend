@@ -1,5 +1,5 @@
 import express from 'express';
-import validateRequest from '../middleware/validateRequest';
+import validateRequest from '@/middleware/validateRequest';
 import {
   register,
   verifyEmail,
@@ -9,7 +9,7 @@ import {
   resetPassword,
   logout,
   verifyForgotPasswordCode,
-} from '../controllers/auth.controllers';
+} from '@/controllers/auth.controllers';
 import {
   registerSchema,
   emailVerifySchema,
@@ -17,8 +17,8 @@ import {
   verificationCodeSchema,
   resetPasswordSchema,
   verifyForgotPasswordCodeSchema,
-} from '../validation/auth.validation';
-import { isAuthenticatedUser } from '../middleware/authGuard';
+} from '@/validation/auth.validation';
+import { isAuthenticatedUser } from '@/middleware/authGuard';
 const router = express.Router();
 
 router.post('/register', validateRequest(registerSchema), register);

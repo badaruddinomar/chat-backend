@@ -4,13 +4,13 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
-import notFound from './middleware/notFound';
-import globalErrorHandler from './middleware/globarErrorHandler';
-import authRoutes from './routes/auth.routes';
-import userRoutes from './routes/user.routes';
+import notFound from '@/middleware/notFound';
+import globalErrorHandler from '@/middleware/globarErrorHandler';
+import authRoutes from '@/routes/auth.routes';
+import userRoutes from '@/routes/user.routes';
 import fileUpload from 'express-fileupload';
-import { apiLimiter } from './middleware/apiLimiter';
-import { startSchedulers } from './schedulers';
+import { apiLimiter } from '@/middleware/apiLimiter';
+import { startSchedulers } from '@/schedulers';
 
 const app: Application = express();
 

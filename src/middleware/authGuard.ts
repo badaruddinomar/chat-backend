@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
-import AppError from '../utils/AppError';
+import AppError from '@/utils/AppError';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import config from '../config';
+import config from '@/config';
 import httpStatus from 'http-status';
-import { IUser } from '../interface/user.interface';
-import { prisma } from '../utils/prismaClient';
-import catchAsync from '../utils/catchAsync';
+import { IUser } from '@/interface/user.interface';
+import { prisma } from '@/utils/prismaClient';
+import catchAsync from '@/utils/catchAsync';
 
 export const isAuthenticatedUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {

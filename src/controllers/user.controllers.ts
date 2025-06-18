@@ -1,14 +1,14 @@
-import catchAsync from '../utils/catchAsync';
+import catchAsync from '@/utils/catchAsync';
 import { Request, Response, NextFunction, RequestHandler } from 'express';
 import httpStatus from 'http-status';
-import AppError from '../utils/AppError';
-import { prisma } from '../utils/prismaClient';
+import AppError from '@/utils/AppError';
+import { prisma } from '@/utils/prismaClient';
 import { Prisma } from '@prisma/client';
 import { UploadedFile } from 'express-fileupload';
 import {
   deleteSingleImage,
   uploadSingleImage,
-} from '../utils/cloudinaryImageUpload';
+} from '@/utils/cloudinaryImageUpload';
 import bcryptjs from 'bcryptjs';
 
 export const getUserProfile: RequestHandler = catchAsync(

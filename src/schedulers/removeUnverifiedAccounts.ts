@@ -1,5 +1,5 @@
 import cron from 'node-cron';
-import { prisma } from '../utils/prismaClient';
+import { prisma } from '@/utils/prismaClient';
 
 export const removeUnverifiedAccounts = () => {
   cron.schedule('*/30 * * * *', async () => {

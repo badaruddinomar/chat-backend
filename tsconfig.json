@@ -9,7 +9,11 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "noUnusedParameters": false,
-    "typeRoots": ["node_modules/@types", "./src/types"]
+    "typeRoots": ["node_modules/@types", "./src/types"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src"],
   "exclude": ["dist", "node_modules"]

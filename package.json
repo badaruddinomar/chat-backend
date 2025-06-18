@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node ./dist/server.js",
+    "start": "node -r tsconfig-paths/register dist/server.js",
     "watch:build": "tsc -w",
-    "start:dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "start:dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register ./src/server.ts",
     "dev": "concurrently \"npm run watch:build\" \"npm run start:dev\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -61,6 +61,7 @@
     "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.12.2"
   }

@@ -1,16 +1,16 @@
 import { Request, Response, NextFunction, RequestHandler } from 'express';
-import catchAsync from '../utils/catchAsync';
-import AppError from '../utils/AppError';
+import catchAsync from '@/utils/catchAsync';
+import AppError from '@/utils/AppError';
 import bcryptjs from 'bcryptjs';
 import httpStatus from 'http-status';
-import { createJwtToken } from '../utils/createJwtToken';
-import sendEmail from '../utils/sendEmail';
-import { verifyEmailTemplate } from '../emailTemplates/verifyEmailTemplate';
-import { forgotPasswordEmailTemplate } from '../emailTemplates/forgotPassEmailTemplate';
-import { prisma } from '../utils/prismaClient';
-import { IUser } from '../interface/user.interface';
+import { createJwtToken } from '@/utils/createJwtToken';
+import sendEmail from '@/utils/sendEmail';
+import { verifyEmailTemplate } from '@/emailTemplates/verifyEmailTemplate';
+import { forgotPasswordEmailTemplate } from '@/emailTemplates/forgotPassEmailTemplate';
+import { prisma } from '@/utils/prismaClient';
+import { IUser } from '@/interface/user.interface';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import config from '../config';
+import config from '@/config';
 
 export const register: RequestHandler = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {

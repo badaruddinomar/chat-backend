@@ -1,5 +1,5 @@
 import { UploadedFile } from 'express-fileupload';
-import cloudinary from '../../config/cloudinary';
+import cloudinary from '@/config/cloudinary';
 
 export const uploadSingleImage = async (
   image: UploadedFile, // req.files?.image as UploadedFile
