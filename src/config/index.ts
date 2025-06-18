@@ -18,8 +18,8 @@ export default {
   smtp_service: process.env.SMTP_SERVICE as string,
 
   cloudinary: {
-    cloud_name: process.env.CLOUD_NAME as string,
-    api_key: process.env.API_KEY as string,
-    api_secret: process.env.API_SECRET as string,
+    cloudinary_cloud_name: process.env.CLODINARY_CLOUD_NAME as string,
+    cloudinary_api_key: process.env.CLODINARY_API_KEY as string,
+    cloudinary_api_secret: process.env.CLODINARY_API_SECRET as string,
   },
 };
