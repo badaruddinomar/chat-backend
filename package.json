@@ -11,10 +11,11 @@
     "dev": "concurrently \"npm run watch:build\" \"npm run start:dev\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
-    "prettier:fix": "prettier --write src",
+    "format": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
+    "format:check": "prettier --check \"./src/**/*.+(js|ts|json)\"",
     "postinstall": "prisma generate",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "Badar Uddin Omar",
@@ -58,11 +59,19 @@
     "concurrently": "^9.1.2",
     "eslint": "^9.13.0",
     "globals": "^15.11.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "nodemon": "^3.1.7",
     "prettier": "^3.3.3",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.12.2"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,json}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }
