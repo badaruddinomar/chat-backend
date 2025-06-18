@@ -16,8 +16,9 @@ exports.registerSchema = zod_1.z.object({
     phone: zod_1.z
         .string()
         .regex(/^(?:\+8801|01)[3-9]\d{8}$/, 'Invalid phone number')
-        .trim(),
-    address: zod_1.z.string().min(1, 'Address is required').trim(),
+        .trim()
+        .optional(),
+    address: zod_1.z.string().min(1, 'Address is required').trim().optional(),
 });
 exports.verificationCodeSchema = zod_1.z.object({
     verificationCode: zod_1.z

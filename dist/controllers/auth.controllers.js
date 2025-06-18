@@ -36,7 +36,7 @@ const prismaClient_1 = require("../utils/prismaClient");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../config"));
 exports.register = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password } = req.body;
     // check if user exists--
     const user = yield prismaClient_1.prisma.user.findUnique({
         where: { email },
@@ -55,8 +55,6 @@ exports.register = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 
         data: {
             name,
             email,
-            phone,
-            address,
             password: hashedPassword,
             verifyCode: verificationCode,
             verifyCodeExpire,

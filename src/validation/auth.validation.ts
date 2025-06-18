@@ -10,13 +10,13 @@ export const registerSchema = z.object({
   password: z
     .string()
     .min(6, 'Password must be at least 6 characters long')
-
     .trim(),
   phone: z
     .string()
     .regex(/^(?:\+8801|01)[3-9]\d{8}$/, 'Invalid phone number')
-    .trim(),
-  address: z.string().min(1, 'Address is required').trim(),
+    .trim()
+    .optional(),
+  address: z.string().min(1, 'Address is required').trim().optional(),
 });
 export type RegisterSchema = z.infer<typeof registerSchema>;
 

@@ -14,7 +14,7 @@ import config from '../config';
 
 export const register: RequestHandler = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password } = req.body;
     // check if user exists--
     const user = await prisma.user.findUnique({
       where: { email },
@@ -38,8 +38,6 @@ export const register: RequestHandler = catchAsync(
       data: {
         name,
         email,
-        phone,
-        address,
         password: hashedPassword,
         verifyCode: verificationCode,
         verifyCodeExpire,

@@ -22,8 +22,8 @@ model User {
   name     String
   email    String   @unique
   password String
-  address  String
-  phone    String
+  address  String?
+  phone    String?
   role     UserRole @default(USER)
   avatar   Image?
 

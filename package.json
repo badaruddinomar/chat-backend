@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node ./dist/server.js",
+    "watch:build": "tsc -w",
     "start:dev": "ts-node-dev --respawn --transpile-only ./src/server.ts",
+    "dev": "concurrently \"npm run watch:build\" \"npm run start:dev\"",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --ignore-path .gitignore --write \"./src/**/*.+(js|ts|json)\"",
@@ -53,6 +55,7 @@
     "@types/nodemailer": "^6.4.16",
     "@typescript-eslint/eslint-plugin": "^8.12.2",
     "@typescript-eslint/parser": "^8.12.2",
+    "concurrently": "^9.1.2",
     "eslint": "^9.13.0",
     "globals": "^15.11.0",
     "nodemon": "^3.1.7",
