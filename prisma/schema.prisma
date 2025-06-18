@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+type Image {
+  url       String
+  public_id String
+}
+
+model User {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  email    String   @unique
+  password String
+  address  String
+  phone    String
+  role     UserRole @default(USER)
+  avatar   Image?
+
+  verifyCode       String?
+  isVerified       Boolean   @default(false)
+  verifyCodeExpire DateTime?
+
+  forgotPasswordCode       String?
+  forgotPasswordCodeExpire DateTime?
+
+  isSubscribed Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
