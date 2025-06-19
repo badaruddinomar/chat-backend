@@ -11,12 +11,18 @@ import userRoutes from '@/routes/user.routes';
 import fileUpload from 'express-fileupload';
 import { apiLimiter } from '@/middleware/apiLimiter';
 import { startSchedulers } from '@/schedulers';
+import config from '@/config';
 
 const app: Application = express();
 
+const corsOptions = {
+  origin: config.client_url,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+};
 // middleware--
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(compression());
 app.use(cookieParser());
