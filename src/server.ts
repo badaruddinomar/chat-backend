@@ -1,3 +1,4 @@
+import config from '@/config';
 import express, { Application } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -14,9 +15,14 @@ import { startSchedulers } from '@/schedulers';
 
 const app: Application = express();
 
+const corsOptions = {
+  origin: config.client_url,
+  credentials: true,
+  method: ['GET', 'POST', 'PUT', 'DELETE'],
+};
 // middleware--
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(compression());
 app.use(cookieParser());

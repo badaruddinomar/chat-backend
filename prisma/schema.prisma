@@ -34,8 +34,6 @@ model User {
   forgotPasswordCode       String?
   forgotPasswordCodeExpire DateTime?
 
-  isSubscribed Boolean @default(false)
-
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
