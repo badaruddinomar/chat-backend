@@ -13,15 +13,24 @@ const io = new SocketIOServer(server, {
   },
 });
 
+// used to store online users
+const userSocketMap: Record<string, string> = {}; // {userId: socketId}
+export function getReceiverSocketId(userId: string) {
+  return userSocketMap[userId];
+}
+
 io.on('connection', (socket) => {
   console.log('A user connected');
   const userId = (socket.user as IUser).id;
+  if (userId) userSocketMap[userId] = socket.id;
 
-  socket.join(userId?.toString() as string);
-
+  // io.emit() is used to send events to all the connected clients
+  io.emit('getOnlineUsers', Object.keys(userSocketMap));
   // Handle disconnection
   socket.on('disconnect', () => {
-    console.log('User disconnected');
+    console.log('A user disconnected', socket.id);
+    delete userSocketMap[userId as string];
+    io.emit('getOnlineUsers', Object.keys(userSocketMap));
   });
 });
 
