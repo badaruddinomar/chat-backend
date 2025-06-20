@@ -3,7 +3,6 @@ import catchAsync from '@/utils/catchAsync';
 import AppError from '@/utils/AppError';
 import bcryptjs from 'bcryptjs';
 import httpStatus from 'http-status';
-import { createJwtToken } from '@/utils/createJwtToken';
 import sendEmail from '@/utils/sendEmail';
 import { verifyEmailTemplate } from '@/emailTemplates/verifyEmailTemplate';
 import { forgotPasswordEmailTemplate } from '@/emailTemplates/forgotPassEmailTemplate';
@@ -11,6 +10,7 @@ import { prisma } from '@/utils/prismaClient';
 import { IUser } from '@/interface/user.interface';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '@/config';
+import { createCookie } from '@/utils/createCookie';
 
 export const register: RequestHandler = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -174,8 +174,7 @@ export const login: RequestHandler = catchAsync(
         new AppError(httpStatus.UNAUTHORIZED, 'Please verify your email'),
       );
     }
-    // create jwt token--
-    const token = createJwtToken(user as IUser);
+
     // Send response to client (exclude password)
     const {
       password: _password,
@@ -185,13 +184,11 @@ export const login: RequestHandler = catchAsync(
       forgotPasswordCodeExpire: _forgotPasswordCodeExpire,
       ...userData
     } = user;
+    createCookie(res, user as IUser);
     res.status(httpStatus.OK).json({
       success: true,
       message: 'user logged in successfully',
       data: userData,
-      meta: {
-        token,
-      },
     });
   },
 );
@@ -322,6 +319,7 @@ export const resetPassword: RequestHandler = catchAsync(
 
 export const logout: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
+    res.clearCookie('token');
     res.status(httpStatus.OK).json({
       success: true,
       message: 'user logged out successfully',

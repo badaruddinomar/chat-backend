@@ -1,4 +1,3 @@
-import config from '@/config';
 import express, { Application } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -12,13 +11,14 @@ import userRoutes from '@/routes/user.routes';
 import fileUpload from 'express-fileupload';
 import { apiLimiter } from '@/middleware/apiLimiter';
 import { startSchedulers } from '@/schedulers';
+import config from '@/config';
 
 const app: Application = express();
 
 const corsOptions = {
   origin: config.client_url,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
-  method: ['GET', 'POST', 'PUT', 'DELETE'],
 };
 // middleware--
 app.use(express.json());

@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_1 = __importDefault(require("@/config"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
@@ -17,11 +16,12 @@ const user_routes_1 = __importDefault(require("@/routes/user.routes"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const apiLimiter_1 = require("@/middleware/apiLimiter");
 const schedulers_1 = require("@/schedulers");
+const config_1 = __importDefault(require("@/config"));
 const app = (0, express_1.default)();
 const corsOptions = {
     origin: config_1.default.client_url,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
-    method: ['GET', 'POST', 'PUT', 'DELETE'],
 };
 // middleware--
 app.use(express_1.default.json());
