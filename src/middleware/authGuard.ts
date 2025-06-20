@@ -6,21 +6,20 @@ import httpStatus from 'http-status';
 import { IUser } from '@/interface/user.interface';
 import { prisma } from '@/utils/prismaClient';
 import catchAsync from '@/utils/catchAsync';
+import { Socket } from 'socket.io';
+import { parse } from 'cookie';
 
 export const isAuthenticatedUser = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const authHeader = req.headers.authorization;
+    const token = req.cookies.token;
 
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return next(
-        new AppError(
-          httpStatus.UNAUTHORIZED,
-          'Please login to access this resource.',
-        ),
-      );
+    if (!token) {
+      res.status(httpStatus.UNAUTHORIZED).json({
+        success: false,
+        message: 'Please login to access this resource',
+      });
+      return;
     }
-
-    const token = authHeader.split(' ')[1];
 
     const decodedData = jwt.verify(token, config.jwt_secret) as JwtPayload;
 
@@ -60,4 +59,41 @@ export const authorizeRoles = (...roles: string[]) => {
     }
     next();
   };
+};
+export const authenticateSocket = async (
+  socket: Socket,
+  next: (err?: Error) => void,
+) => {
+  try {
+    const rawCookie = socket.handshake.headers.cookie || '';
+    const cookies = parse(rawCookie);
+    const token = cookies.token;
+
+    if (!token) {
+      throw next(
+        new AppError(
+          httpStatus.UNAUTHORIZED,
+          'Please login to access this resource.',
+        ),
+      );
+    }
+
+    const decodedData = jwt.verify(token, config.jwt_secret) as JwtPayload;
+    const user = await prisma.user.findUnique({
+      where: { id: decodedData?.userId },
+    });
+
+    if (!user) {
+      throw next(
+        new AppError(
+          httpStatus.UNAUTHORIZED,
+          'Please login to access this resource.',
+        ),
+      );
+    }
+    socket.user = user as IUser;
+    next();
+  } catch (err) {
+    return next(err as Error);
+  }
 };

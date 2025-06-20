@@ -12,8 +12,8 @@ import fileUpload from 'express-fileupload';
 import { apiLimiter } from '@/middleware/apiLimiter';
 import { startSchedulers } from '@/schedulers';
 import config from '@/config';
-
-const app: Application = express();
+import { io, app, server } from '@/utils/socket';
+import { authenticateSocket } from '@/middleware/authGuard';
 
 const corsOptions = {
   origin: config.client_url,
@@ -31,6 +31,7 @@ app.set('trust proxy', 1);
 app.use(apiLimiter(100, 15 * 60 * 1000)); // 100 requests per 15 minutes
 app.use(morgan('dev'));
 startSchedulers();
+io.use(authenticateSocket);
 
 // handling uncaught exceptions--
 process.on('uncaughtException', (err) => {
@@ -49,7 +50,7 @@ app.use('/api/v1/users', userRoutes);
 app.use(notFound);
 app.use(globalErrorHandler);
 // server--
-const server = app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log(`Server listening on port ${process.env.PORT}`);
 });
 
