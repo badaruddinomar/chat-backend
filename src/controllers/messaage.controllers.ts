@@ -6,34 +6,6 @@ import { UploadedFile } from 'express-fileupload';
 import { uploadSingleImage } from '@/utils/cloudinaryImageUpload';
 import { getReceiverSocketId, io } from '@/utils/socket';
 
-export const getAllSidebarUsers: RequestHandler = catchAsync(
-  async (req: Request, res: Response) => {
-    const loggedInUserId = req.user.id;
-
-    // Prisma query to find all users except the logged-in user
-    const filteredUsers = await prisma.user.findMany({
-      where: {
-        id: {
-          not: loggedInUserId,
-        },
-      },
-      select: {
-        password: false,
-        id: true,
-        name: true,
-        email: true,
-        avatar: true,
-      },
-    });
-
-    res.status(httpStatus.OK).json({
-      success: true,
-      message: 'Users retrived successfully',
-      data: filteredUsers,
-    });
-  },
-);
-
 export const getMessages: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { id: userToChatId } = req.params;

@@ -59,7 +59,6 @@ exports.changePassword =
   exports.deleteUser =
   exports.updateUserProfile =
   exports.getAllUsers =
-  exports.getSingleUser =
   exports.getUserProfile =
     void 0;
 const catchAsync_1 = __importDefault(require('@/utils/catchAsync'));
@@ -107,48 +106,6 @@ exports.getUserProfile = (0, catchAsync_1.default)((req, res, next) =>
     res.status(http_status_1.default.OK).json({
       success: true,
       message: 'User profile retrieved successfully',
-      data: user,
-    });
-  }),
-);
-exports.getSingleUser = (0, catchAsync_1.default)((req, res, next) =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    const userId = req.params.id;
-    if (!userId) {
-      return next(
-        new AppError_1.default(
-          http_status_1.default.BAD_REQUEST,
-          'User not found',
-        ),
-      );
-    }
-    const user = yield prismaClient_1.prisma.user.findUnique({
-      where: { id: userId },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        address: true,
-        role: true,
-        avatar: true,
-        isVerified: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
-    if (!user) {
-      return next(
-        new AppError_1.default(
-          http_status_1.default.NOT_FOUND,
-          'User not found',
-        ),
-      );
-    }
-    // Send response to client
-    res.status(http_status_1.default.OK).json({
-      success: true,
-      message: 'User retrieved successfully',
       data: user,
     });
   }),

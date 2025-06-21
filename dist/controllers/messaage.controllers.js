@@ -38,40 +38,12 @@ var __importDefault =
     return mod && mod.__esModule ? mod : { default: mod };
   };
 Object.defineProperty(exports, '__esModule', { value: true });
-exports.sendMessages =
-  exports.getMessages =
-  exports.getAllSidebarUsers =
-    void 0;
+exports.sendMessages = exports.getMessages = void 0;
 const catchAsync_1 = __importDefault(require('@/utils/catchAsync'));
 const http_status_1 = __importDefault(require('http-status'));
 const prismaClient_1 = require('@/utils/prismaClient');
 const cloudinaryImageUpload_1 = require('@/utils/cloudinaryImageUpload');
 const socket_1 = require('@/utils/socket');
-exports.getAllSidebarUsers = (0, catchAsync_1.default)((req, res) =>
-  __awaiter(void 0, void 0, void 0, function* () {
-    const loggedInUserId = req.user.id;
-    // Prisma query to find all users except the logged-in user
-    const filteredUsers = yield prismaClient_1.prisma.user.findMany({
-      where: {
-        id: {
-          not: loggedInUserId,
-        },
-      },
-      select: {
-        password: false,
-        id: true,
-        name: true,
-        email: true,
-        avatar: true,
-      },
-    });
-    res.status(http_status_1.default.OK).json({
-      success: true,
-      message: 'Users retrived successfully',
-      data: filteredUsers,
-    });
-  }),
-);
 exports.getMessages = (0, catchAsync_1.default)((req, res) =>
   __awaiter(void 0, void 0, void 0, function* () {
     const { id: userToChatId } = req.params;

@@ -48,41 +48,7 @@ export const getUserProfile: RequestHandler = catchAsync(
     });
   },
 );
-export const getSingleUser: RequestHandler = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const userId = req.params.id;
 
-    if (!userId) {
-      return next(new AppError(httpStatus.BAD_REQUEST, 'User not found'));
-    }
-    const user = await prisma.user.findUnique({
-      where: { id: userId },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        phone: true,
-        address: true,
-        role: true,
-        avatar: true,
-        isVerified: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
-
-    if (!user) {
-      return next(new AppError(httpStatus.NOT_FOUND, 'User not found'));
-    }
-
-    // Send response to client
-    res.status(httpStatus.OK).json({
-      success: true,
-      message: 'User retrieved successfully',
-      data: user,
-    });
-  },
-);
 export const getAllUsers: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
     const { search, page, limit } = req.query;
