@@ -10,7 +10,9 @@ const io = new SocketIOServer(server, {
   cors: {
     origin: config.client_url,
     credentials: true,
+    methods: ['GET', 'POST'],
   },
+  transports: ['websocket', 'polling'],
 });
 
 // used to store online users

@@ -19,7 +19,9 @@ const io = new socket_io_1.Server(server, {
   cors: {
     origin: config_1.default.client_url,
     credentials: true,
+    methods: ['GET', 'POST'],
   },
+  transports: ['websocket', 'polling'],
 });
 exports.io = io;
 // used to store online users

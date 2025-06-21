@@ -70,7 +70,7 @@ export const authenticateSocket = async (
     const token = cookies.token;
 
     if (!token) {
-      throw next(
+      return next(
         new AppError(
           httpStatus.UNAUTHORIZED,
           'Please login to access this resource.',
@@ -84,7 +84,7 @@ export const authenticateSocket = async (
     });
 
     if (!user) {
-      throw next(
+      return next(
         new AppError(
           httpStatus.UNAUTHORIZED,
           'Please login to access this resource.',

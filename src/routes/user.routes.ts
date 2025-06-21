@@ -4,6 +4,7 @@ import {
   changePassword,
   deleteUser,
   getAllUsers,
+  getSingleUser,
   getUserProfile,
   updateUserProfile,
 } from '@/controllers/user.controllers';
@@ -16,6 +17,7 @@ import {
 const router = express.Router();
 
 router.get('/profile', isAuthenticatedUser, getUserProfile);
+router.get('/single/:id', isAuthenticatedUser, getSingleUser);
 router.get('/all', isAuthenticatedUser, authorizeRoles('ADMIN'), getAllUsers);
 router.patch(
   '/update',
