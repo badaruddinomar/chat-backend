@@ -8,6 +8,7 @@ import notFound from '@/middleware/notFound';
 import globalErrorHandler from '@/middleware/globarErrorHandler';
 import authRoutes from '@/routes/auth.routes';
 import userRoutes from '@/routes/user.routes';
+import messageRoutes from '@/routes/message.routes';
 import fileUpload from 'express-fileupload';
 import { apiLimiter } from '@/middleware/apiLimiter';
 import { startSchedulers } from '@/schedulers';
@@ -46,6 +47,7 @@ app.get('/', (_req, res) => {
 });
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/messages', messageRoutes);
 // not found middleware
 app.use(notFound);
 app.use(globalErrorHandler);

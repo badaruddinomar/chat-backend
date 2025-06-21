@@ -13,6 +13,7 @@ const notFound_1 = __importDefault(require("@/middleware/notFound"));
 const globarErrorHandler_1 = __importDefault(require("@/middleware/globarErrorHandler"));
 const auth_routes_1 = __importDefault(require("@/routes/auth.routes"));
 const user_routes_1 = __importDefault(require("@/routes/user.routes"));
+const message_routes_1 = __importDefault(require("@/routes/message.routes"));
 const express_fileupload_1 = __importDefault(require("express-fileupload"));
 const apiLimiter_1 = require("@/middleware/apiLimiter");
 const schedulers_1 = require("@/schedulers");
@@ -48,6 +49,7 @@ socket_1.app.get('/', (_req, res) => {
 });
 socket_1.app.use('/api/v1/auth', auth_routes_1.default);
 socket_1.app.use('/api/v1/users', user_routes_1.default);
+socket_1.app.use('/api/v1/messages', message_routes_1.default);
 // not found middleware
 socket_1.app.use(notFound_1.default);
 socket_1.app.use(globarErrorHandler_1.default);

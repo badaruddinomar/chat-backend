@@ -2,7 +2,6 @@ import { Server as SocketIOServer } from 'socket.io';
 import http from 'http';
 import express, { Application } from 'express';
 import config from '@/config';
-import { prisma } from '@/utils/prismaClient';
 import { IUser } from '@/interface/user.interface';
 const app: Application = express();
 const server = http.createServer(app);
