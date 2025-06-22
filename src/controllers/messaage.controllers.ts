@@ -1,10 +1,11 @@
-import { Request, Response, RequestHandler } from 'express';
+import { Request, Response, RequestHandler, NextFunction } from 'express';
 import catchAsync from '@/utils/catchAsync';
 import httpStatus from 'http-status';
 import { prisma } from '@/utils/prismaClient';
 import { UploadedFile } from 'express-fileupload';
 import { uploadSingleImage } from '@/utils/cloudinaryImageUpload';
 import { getReceiverSocketId, io } from '@/utils/socket';
+import AppError from '@/utils/AppError';
 
 export const getMessages: RequestHandler = catchAsync(
   async (req: Request, res: Response) => {
@@ -34,8 +35,13 @@ export const getMessages: RequestHandler = catchAsync(
 );
 
 export const sendMessages: RequestHandler = catchAsync(
-  async (req: Request, res: Response) => {
+  async (req: Request, res: Response, next: NextFunction) => {
     const { text } = req.body;
+    if (text === '') {
+      return next(
+        new AppError(httpStatus.BAD_REQUEST, 'Message cannot be empty'),
+      );
+    }
     const { id: receiverId } = req.params;
     const senderId = req.user.id;
 
