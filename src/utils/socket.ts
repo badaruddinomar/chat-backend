@@ -22,7 +22,8 @@ export function getReceiverSocketId(userId: string) {
 }
 
 io.on('connection', async (socket) => {
-  console.log('A user connected');
+  console.log('USER CONNECTED:', (socket.user as IUser).name, socket.id);
+
   const userId = (socket.user as IUser).id;
   if (userId) userSocketMap[userId] = socket.id;
   const onlineUserIds = Object.keys(userSocketMap);
@@ -30,7 +31,7 @@ io.on('connection', async (socket) => {
   io.emit('getOnlineUsers', onlineUserIds);
   // Handle disconnection
   socket.on('disconnect', () => {
-    console.log('A user disconnected', socket.id);
+    console.log('USER DISCONNECTED:', (socket.user as IUser).name, socket.id);
     delete userSocketMap[userId as string];
     io.emit('getOnlineUsers', Object.keys(userSocketMap));
   });
